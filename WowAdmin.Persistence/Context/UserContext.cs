@@ -1,6 +1,6 @@
 namespace WowAdmin.Persistence.Context
 {
-    public class UserContext
+    public class AccountContext
     {
 
     }

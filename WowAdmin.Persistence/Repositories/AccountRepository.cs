@@ -7,13 +7,13 @@ namespace WowAdmin.Persistence.Repositories
 {
     public class AccountRepository
     {
-        private readonly UserContext _userContext;
+        private readonly AccountContext _accountContext;
         private const int G = 7;
         private const string hex = "894B645E89E1535BBDAD5B8B290650530801B18EBFBF5E8FAB3C82872A3E9BB7";
 
-        public AccountRepository(UserContext userContext)
+        public AccountRepository(AccountContext accountContext)
         {
-            _userContext = userContext;
+            _accountContext = accountContext;
         }
 
         public Task<bool> CreateUser(string accountName, string password, string? email)

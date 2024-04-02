@@ -16,7 +16,7 @@ namespace WowAdmin.Persistence.Repositories
             _accountContext = accountContext;
         }
 
-        public Task<bool> CreateUser(string accountName, string password, string? email)
+        public Task<(bool, string)> CreateUser(string accountName, string password, string? email)
         {
             var salt = new byte[32];
             RandomNumberGenerator.Create().GetBytes(salt);
@@ -27,7 +27,7 @@ namespace WowAdmin.Persistence.Repositories
             var N = CryptographyHelpers.ToBytes(hex).ToSrpBigInt();
             var verifier = BigInteger.ModPow(G, h2, N).ToByteArray(isUnsigned: true); // (G ^ h2) % N;
 
-            return Task.FromResult(false);
+            return Task.FromResult((false, "Call to context has not been implemented, account NOT created"));
         }
     }
 }

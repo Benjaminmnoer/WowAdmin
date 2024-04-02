@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.Swagger.Annotations;
 using WowAdmin.Persistence.Repositories;
@@ -9,12 +10,12 @@ namespace WowAdmin.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class AccountController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<AccountController> _logger;
         private readonly AccountRepository _accountRepository;
 
-        public UserController(ILogger<UserController> logger, AccountRepository accountRepository)
+        public AccountController(ILogger<AccountController> logger, AccountRepository accountRepository)
         {
             _logger = logger;
             _accountRepository = accountRepository;
@@ -25,7 +26,11 @@ namespace WowAdmin.Web.Controllers
         [SwaggerResponse((int)HttpStatusCode.OK, "Success", typeof(AddAccountResponse))]
         public async Task<IActionResult> AddAccount(AddAccountRequest request)
         {
-            var result = await _accountRepository.CreateUser(request.AccountName, request.Password, request.Email);
+            var (success, error) = await _accountRepository.CreateUser(request.AccountName, request.Password, request.Email);
+            if (!success)
+            {
+                return BadRequest(new AddAccountResponse { AccountName = request.AccountName, Success = false, Error = error });
+            }
 
             return Ok(new AddAccountResponse { AccountName = request.AccountName, Success = true });
         }        

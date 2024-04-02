@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
+using System.Security.Cryptography;
 using WowAdmin.Persistence.Context;
+using WowAdmin.Persistence.Helpers;
 
 namespace WowAdmin.Persistence.Repositories
 {
@@ -20,7 +18,16 @@ namespace WowAdmin.Persistence.Repositories
 
         public Task<bool> CreateUser(string accountName, string password, string? email)
         {
-            return Task.FromResult<bool>(true);
+            var salt = new byte[32];
+            RandomNumberGenerator.Create().GetBytes(salt);
+
+            var h1 = CryptographyHelpers.Hash((accountName + ":" + password).ToUpper());
+            var h2 = CryptographyHelpers.Hash(salt.Concat(h1)).ToSrpBigInt(false);
+
+            var N = CryptographyHelpers.ToBytes(hex).ToSrpBigInt();
+            var verifier = BigInteger.ModPow(G, h2, N).ToByteArray(isUnsigned: true); // (G ^ h2) % N;
+
+            return Task.FromResult(false);
         }
     }
 }

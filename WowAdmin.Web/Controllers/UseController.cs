@@ -14,16 +14,16 @@ namespace WowAdmin.Web.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly AccountRepository _accountRepository;
 
-        public UserController(ILogger<UserController> logger, AccountRepository userRepostitory)
+        public UserController(ILogger<UserController> logger, AccountRepository accountRepository)
         {
             _logger = logger;
-            _accountRepository = userRepostitory;
+            _accountRepository = accountRepository;
         }
 
         [HttpPost]
         [Route("AddAccount")]
         [SwaggerResponse((int)HttpStatusCode.OK, "Success", typeof(AddAccountResponse))]
-        public async Task<IActionResult> AddUser(AddAccountRequest request)
+        public async Task<IActionResult> AddAccount(AddAccountRequest request)
         {
             var result = await _accountRepository.CreateUser(request.AccountName, request.Password, request.Email);
 

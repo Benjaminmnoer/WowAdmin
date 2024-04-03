@@ -11,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AccountContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("AccountDatabase")));
+builder.Services.AddDbContext<CharacterContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("CharactersDatabase")));
+builder.Services.AddDbContext<WorldContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("WorldDatabase")));
 builder.Services.AddTransient<AccountRepository>();
 
 var app = builder.Build();

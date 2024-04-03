@@ -16,7 +16,7 @@ namespace WowAdmin.Persistence.Repositories
             _accountContext = accountContext;
         }
 
-        public Task<(bool, string)> CreateUser(string accountName, string password, string? email)
+        public async Task<(bool, string)> CreateUser(string accountName, string password, string? email)
         {
             var salt = new byte[32];
             RandomNumberGenerator.Create().GetBytes(salt);

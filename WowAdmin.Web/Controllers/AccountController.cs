@@ -1,7 +1,6 @@
 using System.Net;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.Swagger.Annotations;
+using Swashbuckle.AspNetCore.Annotations;
 using WowAdmin.Persistence.Repositories;
 using WowAdmin.Web.Requests;
 using WowAdmin.Web.Responses;

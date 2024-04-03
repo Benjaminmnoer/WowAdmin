@@ -1,6 +1,0 @@
-@WowAdmin.Web_HostAddress = http://localhost:5259
-
-GET {{WowAdmin.Web_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

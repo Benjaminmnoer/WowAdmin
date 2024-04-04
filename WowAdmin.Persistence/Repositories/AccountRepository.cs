@@ -27,7 +27,7 @@ namespace WowAdmin.Persistence.Repositories
             var N = CryptographyHelpers.ToBytes(hex).ToSrpBigInt();
             var verifier = BigInteger.ModPow(G, h2, N).ToByteArray(isUnsigned: true); // (G ^ h2) % N;
 
-            return Task.FromResult((false, "Call to context has not been implemented, account NOT created"));
+            return (false, "Call to context has not been implemented, account NOT created");
         }
     }
 }

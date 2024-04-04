@@ -13,9 +13,9 @@ namespace WowAdmin.Persistence.Repositories
             _worldContext = worldContext;
         }
 
-        public Task<(bool, string)> AddCharacter(string name, int level, int race, int @class)
+        public Task<(bool, string)> AddCharacter(int accountId, int realmdId, string name, int level, int race, int @class)
         {
-            return Task.FromResult((true, "Db connection not implemented, character NOT created"));
+            return Task.FromResult((false, "Db connection not implemented, character NOT created"));
         }
     }
 }

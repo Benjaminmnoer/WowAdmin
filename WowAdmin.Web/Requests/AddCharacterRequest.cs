@@ -2,6 +2,10 @@
 {
     public class AddCharacterRequest
     {
+        public required int AccountId { get; set; }
+
+        public required int RealmId { get; set; }
+
         public required string Name { get; set; }
 
         public required int Level { get; set; }

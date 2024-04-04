@@ -39,5 +39,15 @@ namespace WowAdmin.Persistence.Helpers
 
             return hexAsBytes;
         }
+
+        public static string ToHexString(this byte[] bytes)
+        {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 1; i <= bytes.Length; i++)
+            {
+                builder.Append(bytes[bytes.Length - i].ToString("x2"));
+            }
+            return builder.ToString();
+        }
     }
 }

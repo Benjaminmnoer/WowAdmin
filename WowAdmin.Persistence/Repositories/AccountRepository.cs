@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using Org.BouncyCastle.Asn1.Ocsp;
+using System.Numerics;
 using System.Security.Cryptography;
 using WowAdmin.Persistence.Context;
 using WowAdmin.Persistence.Helpers;
@@ -27,7 +28,33 @@ namespace WowAdmin.Persistence.Repositories
             var N = CryptographyHelpers.ToBytes(hex).ToSrpBigInt();
             var verifier = BigInteger.ModPow(G, h2, N).ToByteArray(isUnsigned: true); // (G ^ h2) % N;
 
-            return (-1, "Call to context has not been implemented, account NOT created");
+            _accountContext.Accounts.Add(new Account
+            {
+                Username = accountName.ToUpper(),
+                S = salt.ToHexString(),
+                V = verifier.ToHexString(),
+                Email = email,
+                Joindate = DateTime.Now,
+                LastIp = "0.0.0.0",
+                FailedLogins = 0,
+                Locked = 0,
+                LockCountry = "00",
+                Online = 0,
+                Expansion = 0,
+                Mutetime = 0,
+                Locale = 0,
+                Os = "Win",
+                Platform = "x86"
+            });
+
+            var result = await _accountContext.SaveChangesAsync();
+
+            if (result != 1)
+            {
+                return (-1, $"Error saving database changes, number of rows changed is {result}");
+            }
+
+            return ((int)_accountContext.Accounts.First(x => x.Username == accountName).Id, "");
         }
     }
 }

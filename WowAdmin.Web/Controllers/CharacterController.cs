@@ -21,9 +21,9 @@ namespace WowAdmin.Web.Controllers
         }
 
         [HttpPost]
-        [Route("AddCharactter")]
+        [Route("AddCharacter")]
         [SwaggerResponse((int)HttpStatusCode.OK, "Success", typeof(AddCharacterResponse))]
-        public async Task<IActionResult> AddAccount(AddCharacterRequest request)
+        public async Task<IActionResult> AddCharacter(AddCharacterRequest request)
         {
             var (success, error) = await _characterRepository.AddCharacter(request.AccountId, request.RealmId, request.Name, request.Level, request.Race, request.Class);
             if (!success)

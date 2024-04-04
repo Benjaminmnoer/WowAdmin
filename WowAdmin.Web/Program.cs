@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AccountContext>(options => options.UseMySQL(builde
 builder.Services.AddDbContext<CharacterContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("CharactersDatabase")));
 builder.Services.AddDbContext<WorldContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("WorldDatabase")));
 builder.Services.AddTransient<AccountRepository>();
+builder.Services.AddTransient<CharacterRepository>();
 
 var app = builder.Build();
 

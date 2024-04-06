@@ -25,13 +25,13 @@ namespace WowAdmin.Web.Controllers
         [SwaggerResponse((int)HttpStatusCode.OK, "Success", typeof(AddAccountResponse))]
         public async Task<IActionResult> AddAccount(AddAccountRequest request)
         {
-            var (success, error) = await _accountRepository.CreateUser(request.AccountName, request.Password, request.Email);
-            if (!success)
+            var (accountId, error) = await _accountRepository.CreateUser(request.AccountName, request.Password, request.Email);
+            if (accountId < 0)
             {
-                return BadRequest(new AddAccountResponse { AccountName = request.AccountName, Success = false, Error = error });
+                return BadRequest(new AddAccountResponse { AccountId = accountId, AccountName = request.AccountName, Success = false, Error = error });
             }
 
-            return Ok(new AddAccountResponse { AccountName = request.AccountName, Success = true });
+            return Ok(new AddAccountResponse { AccountId = accountId, AccountName = request.AccountName, Success = true });
         }        
     }
 }

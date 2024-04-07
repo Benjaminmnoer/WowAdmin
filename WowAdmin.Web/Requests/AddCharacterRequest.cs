@@ -21,5 +21,8 @@ namespace WowAdmin.Web.Requests
 
         [FromQuery]
         public required int Class { get; set; }
+
+        [FromQuery]
+        public required bool AutoEquip { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
-namespace WowAdmin.Web.Requests
+namespace WowAdmin.Web.Requests 
 {
-    public class AddCharacterRequest
+    public class AddLevelOneCharacterRequest
     {
         [FromQuery]
         public required int AccountId { get; set; }
@@ -12,9 +12,6 @@ namespace WowAdmin.Web.Requests
 
         [FromQuery]
         public required string Name { get; set; }
-
-        [FromQuery]
-        public required int Level { get; set; }
 
         [FromQuery]
         public required int Race { get; set; }

@@ -33,5 +33,19 @@ namespace WowAdmin.Web.Controllers
 
             return Ok(new AddCharacterResponse { Name = request.Name, Success = true });
         }
+
+        [HttpPost]
+        [Route("AddLevelOneCharacter")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Success", typeof(AddCharacterResponse))]
+        public async Task<IActionResult> AddLevelOneCharacter(AddLevelOneCharacterRequest request)
+        {
+            var (success, error) = await _characterRepository.AddCharacter(request.AccountId, request.RealmId, request.Name, 1, request.Race, request.Class);
+            if (!success)
+            {
+                return StatusCode(500, new AddCharacterResponse { Name = request.Name, Success = false, Error = error });
+            }
+
+            return BadRequest("Not implemented");
+        }
     }
 }
